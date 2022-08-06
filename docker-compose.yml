@@ -1,0 +1,14 @@
+services:
+  # https://www.youtube.com/watch?v=FHOq7YsHLt8&ab_channel=DebuggeandoIdeas
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    container_name: mongo-database
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./.mongodb/data/db:/data/db
+      - ./.mongodb/data/log:/var/log/mongodb
