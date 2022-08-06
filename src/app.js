@@ -11,9 +11,8 @@ app.listen(port, () => {
 
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send({ msg: 'Hello World' })
-})
 
+// routes
+app.get('/', (req, res) => { res.send({ msg: 'Hello World' }) })
 app.post('/login', loginController)
 app.post('/register', registerController)
