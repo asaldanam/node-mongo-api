@@ -20,4 +20,3 @@ app.get('/', logger, (req, res) => { res.send({ message: 'node-mongo-api works!'
 app.post('/login', logger, loginController)
 app.post('/register', logger, registerController)
 app.get('/users', logger, authGuard, getUsersController)
-app.get('/users', logger, getUsersController)
