@@ -1,20 +1,23 @@
-import express from 'express'
+import express from 'express';
 
-import { changePasswordController } from './controllers/change-password.js';
+import cors from 'cors';
 import { loginController } from './controllers/login.js';
 import { registerController } from './controllers/register.js';
-import cors from 'cors'
+import { getUsersController } from './controllers/users.js';
+import { logger } from './handlers/logger.js';
+import { authGuard } from './handlers/authGuard.js';
 
 const app = express();
 const port = 8081;
 
-app.listen(port, () => console.log(`Running in ${port}`))
+app.listen(port, () => console.log(`Running in http://localhost:${port}`))
 
 app.use(express.json())
 app.use(cors())
 
 // routes
-app.get('/', (req, res) => { res.send({ message: 'node-mongo-api works!' }) })
-app.post('/login', loginController)
-app.post('/register', registerController)
-app.post('/change-password', changePasswordController)
+app.get('/', logger, (req, res) => { res.send({ message: 'node-mongo-api works!' }) })
+app.post('/login', logger, loginController)
+app.post('/register', logger, registerController)
+app.get('/users', logger, authGuard, getUsersController)
+app.get('/users', logger, getUsersController)
