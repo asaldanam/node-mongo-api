@@ -1,11 +1,10 @@
-import express from 'express';
-
 import cors from 'cors';
+import express from 'express';
 import { loginController } from './controllers/login.js';
 import { registerController } from './controllers/register.js';
 import { getUsersController } from './controllers/users.js';
-import { logger } from './handlers/logger.js';
 import { authGuard } from './handlers/authGuard.js';
+import { logger } from './handlers/logger.js';
 
 const app = express();
 const port = 8081;
