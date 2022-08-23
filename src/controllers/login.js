@@ -5,17 +5,17 @@ export async function loginController(req, res) {
 
   // No recibe email por el body
   if (!body.email) {
-    res.status(400).send({ error: 'Email no enviado' })
+    res.status(400).send({ error: 'Email no enviado' });
     return;
   }
 
   // No recibe password por el body
   if (!body.password) {
-    res.status(400).send({ error: 'Contraseña no enviada' })
+    res.status(400).send({ error: 'Contraseña no enviada' });
     return;
   }
 
-  // SELECT * FROM users WHERE email = `${email}`
+  // SELECT * FROM users WHERE email=`${email}`
   const db = await mongodb();
   const users = await db.collection('users').find({ email: body.email }).toArray();
   const [user] = users;
@@ -31,7 +31,7 @@ export async function loginController(req, res) {
     return;
   }
 
-  const token = btoa(`${user.email}/${new Date().toISOString()}`)
+  const token = btoa(`${user.email}/${new Date().toISOString()}`);
 
-  res.send({ email: user.email, token })
+  res.send({ email: user.email, token });
 }

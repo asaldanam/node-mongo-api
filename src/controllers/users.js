@@ -6,7 +6,7 @@ export async function getUsersController(req, res) {
   const data = await db.collection('users').find({}).toArray();
 
   res.send({
-    data,
-  })
+    data
+  });
 
 }
