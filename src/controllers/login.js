@@ -15,9 +15,8 @@ export async function loginController(req, res) {
     return;
   }
 
-  // SELECT * FROM users WHERE email=`${email}`
-  const db = await mongodb();
-  const users = await db.collection('users').find({ email: body.email }).toArray();
+  const db = await mongodb(); // Abre conexión a la base de datos
+  const users = await db.collection('users').find({ email: body.email }).toArray(); // SELECT * FROM users WHERE email=`${email}`
   const [user] = users;
   
   // btoa encrypta (DE FORMA NO SEGURA!!!) a base64
