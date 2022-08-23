@@ -1,9 +1,12 @@
 import mongodb from "../clients/mongodb.js";
 
 export async function getUsersController(req, res) {
-  // SELECT * FROM users 
+  
+  // Inicializa la conexión con mongodb
   const db = await mongodb();
-  const data = await db.collection('users').find({}).toArray();
+  // saca los datos de la query, esta sería similar a un SELECT * FROM users 
+  // documentación SELECT https://github.com/mongodb/node-mongodb-native#find-all-documents
+  const data = await db.collection('users').find({}).toArray(); 
 
   res.send({
     data
