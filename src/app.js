@@ -3,7 +3,8 @@ import express from 'express';
 import { loginController } from './controllers/login.js';
 import { registerController } from './controllers/register.js';
 import { getUsersController } from './controllers/users.js';
-import { deleteUsersController } from './controllers/user.js';
+import { deleteUserController } from './controllers/user.js';
+import { updateUserController } from './controllers/user.js';
 import { authGuard } from './handlers/authGuard.js';
 import { logger } from './handlers/logger.js';
 
@@ -21,7 +22,11 @@ app.get('/', logger, (req, res) => { res.send({ message: 'node-mongo-api works!'
 app.post('/login', logger, loginController);
 app.post('/register', logger, registerController);
 app.get('/users', logger, authGuard, getUsersController);
-app.delete('/user/:id', logger, authGuard, deleteUsersController);
+app.delete('/user/:id', logger, authGuard, deleteUserController);
+app.put('/user/:id', logger, authGuard, updateUserController);
+
+
+
 
 
 app.get('/channels', logger, (req, res) => {

@@ -27,5 +27,5 @@ export async function registerController(req, res) {
   // VALUES ...
   const result = await db.collection('users').insertOne(user);
 
-  res.send({ result });
+  res.send(result);
 }
