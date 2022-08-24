@@ -31,7 +31,7 @@ app.get('/channels', logger, (req, res) => {
   const query = req.query;
 
   // data de ejemplo, en un caso real aquí habría una query SQL o noSQL
-  const mock = [1, 2, 3, 4, 5, 6, 7] 
+  const mock = [1, 2, 3, 4, 5, 6, 7];
 
   const start = query.offset || 0;
   const end = query.limit || 5;
@@ -46,13 +46,13 @@ app.get('/channel/:id', logger, (req, res) => {
   // Los route params son obligatorios
   // Ejemplo: para la ruta http://localhost:8081/channel/1, params.id tomará el valor de "1"
   const params = req.params; // capturamos los parámetros de ruta
-  const id = parseInt(params.id) // parseamos a number el id que nos llega por params
+  const id = parseInt(params.id); // parseamos a number el id que nos llega por params
 
   // Validamos que el id es un número
   if (isNaN(id)) {
-    res.status(400).send(`El id ${params.id} no es un número`)
+    res.status(400).send(`El id ${params.id} no es un número`);
     return;
   }
 
-  res.send(`El id es ${params.id}`)
+  res.send(`El id es ${params.id}`);
 });
