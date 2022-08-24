@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongodb from "../clients/mongodb.js";
 
 export async function deleteUserController(req, res) {
@@ -12,43 +13,15 @@ export async function deleteUserController(req, res) {
 }
 
 export async function updateUserController(req, res) {
-  const params = req.params;
+  // Se ve que mongodb espera que cuando le filtras por el campo "_id" (porque el id no existe)
+  // Debes pasárselo no como string, si no como una instacia de ObjectId (importado desde la librería)
+  // https://www.mongodb.com/docs/manual/reference/method/ObjectId/
+  const _id = new ObjectId(req.params.id);
   const body = req.body;
 
-  const {name, suremane, sex, date, email, password, privacity, info} = body;
-
-  console.log('body ',body);
-
-  // UPDATE users SET name='sara', surename='carrion'
-  // WHERE id=`${id}`
+  // // WHERE id=`${id}`
   const db = await mongodb();
-  const result = await db.collection('users');
+  const result = await db.collection('users').updateOne({ _id }, { $set: body });
 
-  if(name) {
-    result.updateOne({ id: params.id }, { $set: { name: name } });
-  }
-  if(suremane) {
-    result.updateOne({ id: params.id }, { $set: { suremane: suremane } });
-  }
-  if(sex) {
-    result.updateOne({ id: params.id }, { $set: { sex: sex } });
-  }
-  if(date) {
-    result.updateOne({ id: params.id }, { $set: { date: date } });
-  }
-  if(email) {
-    result.updateOne({ id: params.id }, { $set: { email: email } });
-  }
-  if(password) {
-    result.updateOne({ id: params.id }, { $set: { password: password } });
-  }
-  if(privacity) {
-    result.updateOne({ id: params.id }, { $set: { privacity: privacity } });
-  }
-  if(info) {
-    result.updateOne({ id: params.id }, { $set: { info: info } });
-  }
-
-  // res.send({ result });
-  res.send(`Usuario con id ${params.id} modificado`);
+  res.send(result);
 }
