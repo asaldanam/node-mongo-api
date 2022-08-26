@@ -2,6 +2,9 @@ import { ObjectId } from "mongodb";
 import mongodb from "../clients/mongodb.js";
 
 export async function deleteUserController(req, res) {
+  // Al filtrar por el campo "_id" (porque id no existe) no se puede pasar como string
+  // Si no como una instacia de ObjectId (importado desde la librería)
+  // https://www.mongodb.com/docs/manual/reference/method/ObjectId/
   const _id = new ObjectId(req.params.id);
   const params = req.params;
 
@@ -14,13 +17,11 @@ export async function deleteUserController(req, res) {
 }
 
 export async function updateUserController(req, res) {
-  // Se ve que mongodb espera que cuando le filtras por el campo "_id" (porque el id no existe)
-  // Debes pasárselo no como string, si no como una instacia de ObjectId (importado desde la librería)
-  // https://www.mongodb.com/docs/manual/reference/method/ObjectId/
   const _id = new ObjectId(req.params.id);
   const body = req.body;
 
-  // // WHERE id=`${id}`
+  // UPDATE users SET name='nombre', surname='surname'
+  // WHERE id=`${id}`
   const db = await mongodb();
   const result = await db.collection('users').updateOne({ _id }, { $set: body });
 
