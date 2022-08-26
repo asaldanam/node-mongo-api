@@ -2,11 +2,12 @@ import { ObjectId } from "mongodb";
 import mongodb from "../clients/mongodb.js";
 
 export async function deleteUserController(req, res) {
+  const _id = new ObjectId(req.params.id);
   const params = req.params;
 
   // DELETE FROM users WHERE id=`${id}`
   const db = await mongodb();
-  const result = await db.collection('users').deleteMany({ id: params.id });
+  const result = await db.collection('users').deleteMany({ _id});
 
   // res.send({ result });
   res.send(`Usuario con id ${params.id} borrado`);
