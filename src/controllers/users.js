@@ -8,6 +8,6 @@ export async function getUsersController(req, res) {
   // documentación SELECT https://github.com/mongodb/node-mongodb-native#find-all-documents
   const data = await db.collection('users').find({}).toArray(); 
 
-  res.send(data);
+  res.send({ data });
 
 }
