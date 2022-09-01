@@ -32,3 +32,20 @@ export async function updateUserController(req, res) {
 
   res.send(result);
 }
+
+export async function getUserController(req, res) {
+  
+  try {
+    const _id = new ObjectId(req.params.id);
+  
+    // SELECT * FROM users WHERE id=`${id}`
+    const db = await mongodb();
+    
+    //const result = await db.collection('users').find({ _id }).toArray(); // Esto te trae un array con un solo objeto, no nos interesa tener un array
+    const [result ] = await db.collection('users').find({ _id }).toArray(); // Cuando desestructuras te saca el primer valor
+  
+    res.send({ result });
+  } catch(error) {
+    res.status(500).send(error);
+  }
+}
